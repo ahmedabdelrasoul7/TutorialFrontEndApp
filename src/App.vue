@@ -1,5 +1,5 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <img alt="Vue logo" src="./assets/logo.png" width="100px" height="50px">
   <HelloWorld msg="Welcome to Your Vue.js App"/>
 </template>
 
@@ -8,9 +8,13 @@ import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
+  mounted() {
+    document.title = "My Custom Tab Title";
+  },
   components: {
     HelloWorld
   }
+  
 }
 </script>
 
