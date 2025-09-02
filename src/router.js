@@ -17,6 +17,11 @@ const routes = [
     name: 'add',
     component: () => import('./components/AddTutorial.vue'),
   },
+   {
+    path: '/allTutorial',
+    name: 'allTutorial',
+    component: () => import('./components/allTutorial.vue'),
+  },
 ]
 
 const router = createRouter({

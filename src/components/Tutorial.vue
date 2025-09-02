@@ -19,6 +19,16 @@
         <label><strong>Status:</strong></label>
         {{ currentTutorial.published ? "Published" : "Pending" }}
       </div>
+        <div class="form-group">
+        <label for="description">Image</label>
+        <input
+            type="file"
+            class="form-control"
+            id="image"
+            accept="image/*"
+            @change="onFileChange"
+  />
+      </div>
     </form>
 
     <button class="badge badge-primary mr-2"
@@ -81,7 +91,8 @@ export default {
         id: this.currentTutorial.id,
         title: this.currentTutorial.title,
         description: this.currentTutorial.description,
-        published: status
+        published: status,
+         imageContent: this.currentTutorial.imageContent
       };
 
       TutorialDataService.update(this.currentTutorial.id, data)
@@ -115,7 +126,17 @@ export default {
         .catch(e => {
           console.log(e);
         });
+    },
+     onFileChange(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        this.currentTutorial.imageContent = e.target.result; // base64
+      };
+      reader.readAsDataURL(file);
     }
+  },
   },
   mounted() {
     this.message = '';

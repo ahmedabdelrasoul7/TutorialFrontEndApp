@@ -24,6 +24,31 @@
         />
       </div>
 
+       <div class="form-group">
+        <label for="description">Image</label>
+        <input
+            type="file"
+            class="form-control"
+            id="image"
+            accept="image/*"
+            @change="onFileChange"
+  />
+      </div>
+
+      
+       <div class="form-group">
+        <label for="description">PDF</label>
+        <input
+            type="file"
+            class="form-control"
+            id="pdf"
+           accept="application/pdf"
+            @change="onPDFFileChange"
+  />
+      </div>
+
+      
+
       <button @click="saveTutorial" class="btn btn-success">Submit</button>
     </div>
 
@@ -45,7 +70,9 @@ export default {
         id: null,
         title: "",
         description: "",
-        published: false
+        published: false,
+        imageContent: null,
+        pdfContent: null
       },
       submitted: false
     };
@@ -54,7 +81,9 @@ export default {
     saveTutorial() {
       var data = {
         title: this.tutorial.title,
-        description: this.tutorial.description
+        description: this.tutorial.description,
+        imageContent: this.tutorial.imageContent,
+        pdfContent:this.tutorial.pdfContent
       };
 
       TutorialDataService.create(data)
@@ -71,7 +100,27 @@ export default {
     newTutorial() {
       this.submitted = false;
       this.tutorial = {};
+    },
+    onFileChange(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        this.tutorial.imageContent = e.target.result; // base64
+      };
+      reader.readAsDataURL(file);
     }
+  },
+  onPDFFileChange(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        this.tutorial.pdfContent = e.target.result; // base64
+      };
+      reader.readAsDataURL(file);
+    }
+  }
   }
 };
 </script>

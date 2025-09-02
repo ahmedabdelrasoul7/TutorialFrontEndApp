@@ -53,6 +53,36 @@
           <label><strong>Status:</strong></label>
           {{ currentTutorial.published ? "Published" : "Pending" }}
         </div>
+        <div v-if="currentTutorial.imageContent ">
+            <label><strong>Image:</strong></label><br/>
+            <img
+              :src="currentTutorial.imageContent"
+              alt="tutorial image"
+              style="max-width: 250px; max-height: 150px; border: 1px solid #ddd; border-radius: 5px;"
+            />
+             <br />
+             <a v-if="currentTutorial.imageContent"
+            :href="currentTutorial.imageContent"
+            :download="currentTutorial.title ? currentTutorial.title + '.jpg' : 'tutorial.jpg'"
+            class="btn btn-sm btn-primary mt-2"
+          >
+            Download Image
+          </a>       <br />
+          </div>
+          
+
+          
+           <div v-if="currentTutorial.imageContent == null && currentTutorial.pdfContent">
+            <label><strong>PDF:</strong></label><br/>
+             <a v-if="currentTutorial.pdfContent"
+            :href="currentTutorial.pdfContent"
+            :download="currentTutorial.title ? currentTutorial.title + '.pdf' : 'demo.pdf'"
+            class="btn btn-sm btn-primary mt-2"
+          >
+            Download PDF
+          </a>      
+          </div>
+          
 
         <router-link
           :to="'/tutorials/' + currentTutorial.id"
